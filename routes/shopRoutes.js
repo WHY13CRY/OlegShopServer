@@ -12,7 +12,7 @@ const pool = new Pool ({
   }
 })
 
-router.get('', async (req,res)=>{
+router.get('/', async (req,res)=>{
   const result = await pool.query('SELECT * FROM tovary')
   res.json(result.rows)
 })
