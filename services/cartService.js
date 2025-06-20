@@ -33,9 +33,18 @@ const clearCart = async (userId) => {
   await pool.query(query, [userId]);
 };
 
+const calculateCartTotal = async (userId) => {
+  const items = await getCartItemsByUser(userId);
+  const total = items.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+  return total;
+};
+
 module.exports = {
   getCartItemsByUser,
   addOrUpdateCartItem,
   removeCartItem,
-  clearCart
+  clearCart,
+  calculateCartTotal,
 };

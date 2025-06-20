@@ -51,9 +51,21 @@ const clearUserCart = async (req, res) => {
   }
 };
 
+const getCartTotal = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const total = await cartService.calculateCartTotal(userId);
+    res.json({ totalPrice: total });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to calculate total' });
+  }
+};
+
 module.exports = {
   getCart,
   addToCart,
   removeFromCart,
-  clearUserCart
+  clearUserCart,
+  getCartTotal
 };
